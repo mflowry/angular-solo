@@ -1,40 +1,58 @@
 
 var app = angular.module('taskApp', []);
 
-app.controller('taskCtrl', ['$scope', '$http', function($scope, $http){
-    $scope.tasks=[{text: 'walk dog', complete: false},
-        {text: 'clean dishes', complete: true}];
+//app.controller('taskCtrl', function($scope, $http){
+//    $scope.getTasks = function(){
+//    console.log("getting");
+//    $http({
+//        method: 'GET',
+//        url: "/api/todos",
+//        data: {text: 'text', complete: complete}
+//    })
+//        .then(function(response){
+//            console.log(response);
+//            $scope.tasks = response;
+//        });
+//}
+//});
 
-    $scope.getTasks = function(){
+app.controller('taskCtrl', ['$scope', '$http', function($scope, $http) {
+    tasks=[];
+
+    $scope.getTasks=function() {
+        console.log("getting");
         $http({
             method: 'GET',
             url: "/api/todos"
-        }).then(function(response){
-            $scope.tasks = response.data.tasks;
-        });
+        }).then(function (response) {
+            console.log(response);
+            tasks.push(response.data);
+            console.log(tasks);//not sure why these tasks do not display to the page
+        })
     };
-    $scope.addTask = function(data){
-        //var newTask=$scope.text;
-        //newTask += "&complete=false";
+    //run getTasks on page load
+    $scope.getTasks();
+
+
+    $scope.addTask = function(taskName){
+        console.log(taskName);
         $http({
             method: 'POST',
-            data: { text:text },
+            data: {text: taskName, complete: false},
             url: "/api/todos"
         }).then(function(response){
-            $scope.tasks= response.data;
-            //$scope.todo.text=" "
+        $scope.getTasks();
         });
     };
-}]);
-//    //
-//     $scope.removeTask = function(task){
-//        $http({
-//            method: 'DELETE',
-//            url: "/api/todos"
-//        }).then(function(response){
-//            $scope.tasks.splice(task.id, 1);
-//        });
-//    };
+
+     $scope.removeTask = function(id){
+        $http({
+            method: 'DELETE',
+            url: "/api/todos"
+        }).then(function(response){
+            $scope.tasks.splice(id, 1);
+        });
+    };
 //
 //
 //    $scope.updateTask = function(){
@@ -45,4 +63,4 @@ app.controller('taskCtrl', ['$scope', '$http', function($scope, $http){
 //            $scope.tasks.complete = TRUE;
 //            //add css("text-decoration", "line-through");
 //        })
-//    });
+}]);

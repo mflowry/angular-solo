@@ -8,6 +8,7 @@ router.post('/todos', function(req, res) {
 
     // Grab data from http request
     var data = {text: req.body.text, complete: false};
+    console.log("data: ", data);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
