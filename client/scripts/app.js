@@ -17,7 +17,6 @@ var app = angular.module('taskApp', []);
 //});
 
 app.controller('taskCtrl', ['$scope', '$http', function($scope, $http) {
-    tasks=[];
 
     $scope.getTasks=function() {
         console.log("getting");
@@ -25,9 +24,9 @@ app.controller('taskCtrl', ['$scope', '$http', function($scope, $http) {
             method: 'GET',
             url: "/api/todos"
         }).then(function (response) {
+            $scope.tasks = response.data;
             console.log(response);
-            tasks.push(response.data);
-            console.log(tasks);//not sure why these tasks do not display to the page
+            console.log(tasks);
         })
     };
     //run getTasks on page load
@@ -42,9 +41,10 @@ app.controller('taskCtrl', ['$scope', '$http', function($scope, $http) {
             url: "/api/todos"
         }).then(function(response){
         $scope.getTasks();
+            //empty form field
         });
     };
-
+//delete is not working yet
      $scope.removeTask = function(id){
         $http({
             method: 'DELETE',

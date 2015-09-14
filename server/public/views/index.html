@@ -14,8 +14,8 @@
 <body>
     <div class="container" class='col-md-3' ng-controller="taskCtrl">
         <button ng-click="getTasks()" class='col-md-3'>Get Tasks</button>
-        <h3 class='task well' data-ng-repeat="task in tasks"><span ng-bind="task.text"></span></h3>
-        <h3 class='task well'><span ng-bind="tasks[0].text"></span></h3>
+        <h3 class='task well' class='col-md-3' data-ng-repeat="task in tasks"><span ng-bind="task.text"></span></h3>
+
         <div id="someContainer" class='col-md-3'>
             <input type="text" placeholder="Add your task" id="task" ng-model="taskName"/>
             <button ng-click="addTask(taskName)" class='btn btn-danger'>Add</button>
