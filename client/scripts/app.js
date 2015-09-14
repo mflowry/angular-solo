@@ -40,8 +40,8 @@ app.controller('taskCtrl', ['$scope', '$http', function($scope, $http) {
             data: {text: taskName, complete: false},
             url: "/api/todos"
         }).then(function(response){
-        $scope.getTasks();
-            //empty form field
+            $scope.getTasks();
+           $scope.taskName=" ";
         });
     };
 //delete is not working yet
